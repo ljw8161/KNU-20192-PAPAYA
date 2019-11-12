@@ -17,15 +17,29 @@ for  i in range(len(data["people"])) :
 			pose_info = list()
 		pose_info.append(joint_data[j])
 	info_list.append(person_info)	
+
+############데이터 파싱 완료#######################
 # print(info_list)
-# 두번째 사람의 10번 관절 위치 및 정확도 뽑아내기 
-print('눈  - ')
-print(info_list[0][17])
-print()
-print('14번과 11번 중에 정확도 높은것?')
-print( '14번'
-	if info_list[0][14][2]>=info_list[0][11][2] else '11번')
+
+#############좌표 구하기 시작######################
+
+#15,16,17,18 중에 머릿값 하나 (정확도 제일 높은 것 )
+
+init_value = info_list[0][15][2]
+
+for i in range (4):
+	if info_list[0][15+i][2]>=init_value:
+		init_value = info_list[0][15+i][2]
+		eye_pos = 15+i
+
+print('최종 눈 좌표:')
+print(eye_pos)
+
+if info_list[0][14][2]>=info_list[0][11][2]:
+	foot_pos = 14
+else:
+	foot_pos = 11
 
 print()
 print('머리와 발의 y좌표 차이 ')
-print(info_list[0][17][1] - info_list[0][14][1])
+print(info_list[0][eye_pos][1] - info_list[0][foot_pos][1])
